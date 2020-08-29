@@ -4,9 +4,13 @@ namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
+use \Mcamara\LaravelLocalization\Traits\LoadsTranslatedCachedRoutes;
+
 
 class RouteServiceProvider extends ServiceProvider
 {
+
+    use LoadsTranslatedCachedRoutes;
     /**
      * This namespace is applied to your controller routes.
      *
@@ -74,7 +78,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::middleware('web')
             ->namespace($this->namespace)
-            ->prefix('admin')
+            // ->prefix('admin')
             ->group(base_path('routes/admin.php'));
     }
 
