@@ -10,4 +10,7 @@ class Admin extends Authenticatable
     protected $table = 'admins';
     protected $gaurded = [];
     public $timestamps = true;
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
 }

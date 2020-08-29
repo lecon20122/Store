@@ -3,10 +3,24 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
 {
+    // public function Hello($request , ExceptionHandler $e)
+    // {
+    //     if ($request->hasCookie('language')) {
+    //         app()->setLocale(decrypt($request->cookie('language')));
+    //     }
+
+    //     if ($e instanceof NotFoundHttpException) {
+    //         return response()->view('errors.404', [], 404);
+    //     }
+
+    //     return parent::render($request, $e);
+    // }
+
     /**
      * A list of the exception types that are not reported.
      *
