@@ -32,8 +32,10 @@ Route::group([
             Route::get('shipping-methods', function () {
                 return view('dashboard.settings.shippings.edit');
             })->name('Shipping.Methods');
-            Route::post('shipping-methods/{type}', 'SettingsController@Update')->name('Shipping.Methods.Update');
+            Route::post('shipping-methods/{type}', 'SettingsController@update')->name('Shipping.Methods.Update');
         });
+
+        Route::get('logout', 'LoginController@Logout')->name('admin.logout');
     });
 
     // Admin Route Public

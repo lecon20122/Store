@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Setting;
+use App\Http\Requests\ShippingRequest;
+use Illuminate\Support\Facades\DB;
 
 class SettingsController extends Controller
 {
@@ -15,7 +17,6 @@ class SettingsController extends Controller
      */
     public function index()
     {
-
     }
 
     /**
@@ -67,7 +68,7 @@ class SettingsController extends Controller
         } else
             $shippingmethod = Setting::where('key', 'free_shipping_label')->get()->first();
 
-        return view('dashboard.settings.shippings.edit' , compact('shippingmethod'));
+        return view('dashboard.settings.shippings.edit', compact('shippingmethod'));
     }
 
     /**
@@ -77,9 +78,24 @@ class SettingsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ShippingRequest $request, $id)
     {
-        //
+
+        try {
+            //update DB
+            $shipment_update =  Setting::find($id);
+            DB::beginTransaction();
+            $shipment_update->update(['plain_value' => $request->value]);
+            // Save Translations
+            $shipment_update->value = $request->name;
+            $shipment_update->save();
+            DB::commit();
+            return redirect()->back()->with('success', __('admin/sidebar.Success'));
+        } catch (\Exception $e) {
+
+            return redirect()->back()->with('error', __('admin/sidebar.failure'));
+            DB::rollback();
+        }
     }
 
     /**
