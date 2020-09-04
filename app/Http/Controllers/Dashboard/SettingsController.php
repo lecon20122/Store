@@ -17,6 +17,7 @@ class SettingsController extends Controller
      */
     public function index()
     {
+        return view('dashboard.settings.shippings.edit');
     }
 
     /**

@@ -161,19 +161,33 @@
                 <span class="avatar avatar-online">
                   <img src="{{ asset('assets/admin/images/portrait/small/avatar-s-19.png') }}" alt="avatar"><i></i></span>
               </a>
-              <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="#"><i class="ft-user"></i> Edit Profile</a>
+              <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="{{ route('admin.edit',auth('admin')->user()->id) }}"><i class="ft-user"></i> Edit Profile</a>
                 <a class="dropdown-item" href="#"><i class="ft-mail"></i> My Inbox</a>
                 <a class="dropdown-item" href="#"><i class="ft-check-square"></i> Task</a>
                 <a class="dropdown-item" href="#"><i class="ft-message-square"></i> Chats</a>
                 <div class="dropdown-divider"></div><a class="dropdown-item" href="{{ route('admin.logout') }}"><i class="ft-power"></i> Logout</a>
               </div>
             </li>
+
             <li class="dropdown dropdown-language nav-item"><a class="dropdown-toggle nav-link" id="dropdown-flag" href="#" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false"><i class="flag-icon flag-icon-gb"></i><span class="selected-language"></span></a>
-              <div class="dropdown-menu" aria-labelledby="dropdown-flag"><a class="dropdown-item" href="#"><i class="flag-icon flag-icon-gb"></i> English</a>
-                <a class="dropdown-item" href=""><i class="flag-icon flag-icon-eg"></i>العربية</a>
-              </div>
+              aria-haspopup="true" aria-expanded="false"><i class="{{app()->getLocale()==='ar'? 'flag-icon flag-icon-eg' : 'flag-icon flag-icon-us'}}"></i><span class="">{{app()->getLocale()==='ar'? 'العربية' : 'English'}}</span></a>
+              <div class="dropdown-menu" aria-labelledby="dropdown-flag">
+                @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                <a class="dropdown-item" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}" ><i class="{{$properties['native']==='العربية'? 'flag-icon flag-icon-eg' : 'flag-icon flag-icon-us'}}"></i>{{$properties['native']=='العربية'?'العربية' : 'English'}}</a>
+                {{-- <a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                    {{ $properties['native'] }}
+                </a> --}}
+                @endforeach
+            </div>
             </li>
+
+            {{-- @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+            <li>
+                <a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                    {{ $properties['native'] }}
+                </a>
+            </li>
+        @endforeach --}}
             <li class="dropdown dropdown-notification nav-item">
               <a class="nav-link nav-link-label" href="#" data-toggle="dropdown"><i class="ficon ft-bell"></i>
                 <span class="badge badge-pill badge-default badge-danger badge-default badge-up badge-glow">5</span>
@@ -188,7 +202,7 @@
                 <li class="scrollable-container media-list w-100">
                   <a href="javascript:void(0)">
                     <div class="media">
-                      <div class="media-left align-self-center"><i class="ft-plus-square icon-bg-circle bg-cyan"></i></div>
+                      <div class="media-left align-self-center"><i class="ft-plus-square icon-bg-circle bg-cyan "></i></div>
                       <div class="media-body">
                         <h6 class="media-heading">You have new order!</h6>
                         <p class="notification-text font-small-3 text-muted">Lorem ipsum dolor sit amet, consectetuer elit.</p>
