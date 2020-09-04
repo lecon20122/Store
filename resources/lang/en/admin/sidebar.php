@@ -25,7 +25,9 @@ return [
     'Enable' =>'Enable Shipping Method',
     'Save' =>'Save',
     'Main' => 'Main Page',
-    'Choose' => 'Pick a Method to edit'
+    'Choose' => 'Pick a Method to edit',
+    'Success' => 'Edited Done successfuly',
+    'failure' => 'ُSomehting went wrong , Modifing not completed',
 
 
 

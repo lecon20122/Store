@@ -29,4 +29,15 @@ class LoginController extends Controller
             return redirect()->back()->with(['error' => 'Information were wrong']);
         }
     }
+
+
+    public function Logout()
+    {
+      $logout = auth('admin');
+      $logout->logout();
+      return redirect()->route('admin.login');
+    }
 }
+
+
+

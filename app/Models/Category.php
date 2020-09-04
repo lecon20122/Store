@@ -5,20 +5,25 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Astrotomic\Translatable\Translatable;
 
-class Setting extends Model
+
+class Category extends Model
 {
-
     use Translatable;
-    protected $guarded = [];
+
+    protected $fillable = ['parent_id', 'slug', 'is_active'];
     protected $with = ['translations'];
+    protected $hidden = ['translations'];
+    public $translatedAttributes = ['name'];
+    protected $casts = [
+        'is_active' => 'boolen',
+    ];
 
-    public $translatedAttributes = ['value'];
 
-    public static function setMany($settings)
+    public static function setMany($category)
 
     {
 
-        foreach ($settings as $key => $value) {
+        foreach ($category as $key => $value) {
 
             self::set($key, $value);
         }

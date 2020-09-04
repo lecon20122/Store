@@ -29,10 +29,14 @@ Route::group([
         Route::group(['prefix' => 'settings'], function () {
 
             Route::get('shipping-methods/{type}', 'SettingsController@edit')->name('Shipping.Methods.Edit');
-            Route::get('shipping-methods', function () {
-                return view('dashboard.settings.shippings.edit');
-            })->name('Shipping.Methods');
-            Route::post('shipping-methods/{type}', 'SettingsController@Update')->name('Shipping.Methods.Update');
+            Route::get('shipping-methods', 'SettingsController@index')->name('Shipping.Methods');
+            Route::post('shipping-methods/{type}', 'SettingsController@update')->name('Shipping.Methods.Update');
+        });
+        Route::group(['prefix' => 'profile'], function () {
+            Route::get('logout', 'LoginController@Logout')->name('admin.logout');
+            Route::get('edit', 'ProfileController@Edit')->name('admin.edit');
+            Route::put('update', 'ProfileController@Update')->name('admin.update');
+            
         });
     });
 
